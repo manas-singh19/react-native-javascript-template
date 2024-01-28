@@ -17,37 +17,23 @@ import {
 } from 'react-native';
 
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
+  Colors
 } from 'react-native/Libraries/NewAppScreen';
 
- 
+import 'react-native-gesture-handler';
 
-function Section({children, title}) {
-  const isDarkMode = useColorScheme() === 'dark';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
+
+import ListView from './src/listView';
+import DetailedScreen from './src/DetailedScreen';
+import WebViewScreen from './src/webview';
+
+function HomeScreen() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
     </View>
   );
 }
@@ -60,36 +46,36 @@ function App(){
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    // <NavigationContainer>
+    //    <Stack.Navigator>
+    //     <Stack.Screen name="Home" component={ListView} />
+        // <SafeAreaView style={backgroundStyle}>
+        //   <StatusBar
+        //     barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        //     backgroundColor={backgroundStyle.backgroundColor}
+        //   />
+          
+        //   <ScrollView
+        //     contentInsetAdjustmentBehavior="automatic"
+        //     style={backgroundStyle}> 
+        //     <View
+        //       style={{
+        //         backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        //       }}>
+        //       <Text>Manas Singh</Text>
+        //     </View>
+        //   </ScrollView>
+        //   <Stack.Screen name="Home" component={ListView} />
+        // </SafeAreaView> 
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Project-List">
+        <Stack.Screen name="Project-List" component={ListView} options={{ title: 'Project list View',headerShown:false }}/>     
+        <Stack.Screen name="DetailedScreen" component={DetailedScreen} options={{ title: 'Detailed View',headerShown: false,}}/>
+        <Stack.Screen name="WebView" component={WebViewScreen} options={{ title: 'WebView'}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
